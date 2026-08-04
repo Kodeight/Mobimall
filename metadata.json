@@ -1,0 +1,6 @@
+{
+  "name": "Mobimall Algérie",
+  "description": "Showroom d'ameublement de prestige en Algérie, découvrez nos collections d'exception et prenez rendez-vous en ligne.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
