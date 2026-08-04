@@ -131,7 +131,7 @@ export default function App() {
           {/* Logo de la marque */}
           <div className="flex items-center gap-3">
             <img 
-              src="/src/assets/images/mobimall_logo_1784651556024.jpg" 
+              src="/assets/images/mobimall_logo_1784651556024.jpg" 
               alt="Mobimall" 
               className="w-10 h-10 rounded-full object-cover border border-white/10"
             />

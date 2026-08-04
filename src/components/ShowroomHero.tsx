@@ -26,11 +26,11 @@ const SOFA_3_PLACES_PRODUCT = {
 };
 
 function SofaModel(): React.ReactElement {
-  const materials = useLoader(MTLLoader, "/src/assets/3D/HSM0012.mtl");
+  const materials = useLoader(MTLLoader, "/assets/3D/HSM0012.mtl");
 
   const obj = useLoader(
     OBJLoader,
-    "/src/assets/3D/HSM0012.obj",
+    "/assets/3D/HSM0012.obj",
     (loader) => {
       materials.preload();
       loader.setMaterials(materials);
@@ -39,7 +39,7 @@ function SofaModel(): React.ReactElement {
 
   const texture = useLoader(
     THREE.TextureLoader,
-    "/src/assets/3D/CasualSofa_Diff.jpg"
+    "/assets/3D/CasualSofa_Diff.jpg"
   );
 
   useEffect(() => {
