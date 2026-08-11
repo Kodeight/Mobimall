@@ -251,23 +251,23 @@ export default function ProductCatalog({
   };
 
   return (
-    <section id="catalog-section" className="py-24 px-6 lg:px-16 bg-[#02040a] text-stone-100 border-t border-white/5">
+    <section id="catalog-section" className="py-24 px-6 lg:px-16 border-t" style={{ background: "var(--bg-base)", color: "var(--text-primary)", borderColor: "var(--border-subtle)" }}>
       <div className="max-w-7xl mx-auto space-y-12">
         
         {/* EN-TÊTE DE SECTION */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-2">
-            <span className="text-xs font-mono tracking-widest text-sky-400 uppercase">Catalogue d'Exception</span>
-            <h2 className="text-3xl sm:text-4xl font-serif tracking-tight text-stone-100">
+            <span className="type-label" style={{ color: "var(--accent)" }}>Catalogue d'Exception</span>
+            <h2 className="type-h2" style={{ color: "var(--text-primary)" }}>
               Les Chefs-d'œuvre Numériques
             </h2>
-            <p className="text-stone-400 text-sm max-w-lg font-light leading-relaxed">
+            <p className="type-body-sm font-light leading-relaxed max-w-lg" style={{ color: "var(--text-secondary)" }}>
               Explorez les collections d'exception de Mobimall Algérie. Chaque chef-d'œuvre allie rigueur architecturale contemporaine et patrimoine régional précieux.
             </p>
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-mono text-stone-400">
-            <Grid className="w-4 h-4 text-sky-400" /> Affichage de {filteredProducts.length} créations uniques
+          <div className="flex items-center gap-2 text-xs font-mono" style={{ color: "var(--text-secondary)" }}>
+            <Grid className="w-4 h-4" style={{ color: "var(--accent)" }} /> Affichage de {filteredProducts.length} créations uniques
           </div>
         </div>
 
@@ -282,7 +282,8 @@ export default function ProductCatalog({
             placeholder="Rechercher par modèle, catégorie, matériau (ex: cuir, chêne, velours)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-24 py-3.5 bg-slate-950 border border-white/5 hover:border-white/10 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-xl text-xs text-stone-100 placeholder-stone-500 outline-none transition-all font-mono"
+            className="w-full pl-10 pr-24 py-3.5 rounded-xl text-xs outline-none transition-all"
+            style={{ background: "var(--bg-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)", fontFamily: "var(--font-mono)" }}
           />
           <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center gap-2">
             {searchQuery && (
@@ -297,11 +298,10 @@ export default function ProductCatalog({
             <button
               id="voice-search-mic-btn"
               onClick={startVoiceSearch}
-              className={`p-1.5 rounded-lg border transition-all cursor-pointer ${
-                isListening
-                  ? "bg-red-500/20 border-red-500/50 text-red-400 animate-pulse"
-                  : "bg-slate-900 border-white/5 text-stone-400 hover:text-sky-400 hover:border-sky-500/30"
-              }`}
+              className="p-1.5 rounded-lg border transition-all cursor-pointer"
+              style={isListening
+                ? { background: "rgba(239,68,68,0.15)", borderColor: "rgba(239,68,68,0.5)", color: "#f87171" }
+                : { background: "var(--bg-elevated)", borderColor: "var(--border-subtle)", color: "var(--text-secondary)" }}
               title={isListening ? "Écoute en cours..." : "Recherche vocale"}
             >
               {isListening ? <MicOff className="h-3.5 w-3.5" /> : <Mic className="h-3.5 w-3.5" />}
@@ -312,18 +312,19 @@ export default function ProductCatalog({
         {/* BARRE DE FILTRES : CATÉGORIES & COLLECTIONS */}
         <div className="space-y-4">
           {/* Filtre Catégories */}
-          <div className="flex flex-wrap items-center gap-1.5 border-b border-stone-900 pb-4">
-            <span className="text-xs font-mono text-stone-500 uppercase mr-4">Catégorie :</span>
+          <div className="flex flex-wrap items-center gap-1.5 pb-4" style={{ borderBottom: "1px solid var(--border-subtle)" }}>
+            <span className="text-xs font-mono uppercase mr-4" style={{ color: "var(--text-tertiary)" }}>Catégorie :</span>
             {categories.map(cat => (
               <button
                 key={cat}
                 id={`filter-category-${cat.toLowerCase().replace(/\s+/g, '-')}`}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-lg text-xs font-medium tracking-wide transition-all uppercase cursor-pointer ${
-                  activeCategory === cat 
-                    ? "bg-sky-900/60 border border-sky-500/20 text-white shadow-lg shadow-sky-900/10" 
-                    : "bg-slate-950 border border-white/5 text-stone-400 hover:text-stone-200"
-                }`}
+                className="btn-press px-4 py-2 rounded-lg text-xs font-medium tracking-wide transition-all uppercase cursor-pointer"
+                style={
+                  activeCategory === cat
+                    ? { background: "var(--accent-bg)", border: "1px solid var(--accent-border)", color: "var(--accent)" }
+                    : { background: "var(--bg-card)", border: "1px solid var(--border-subtle)", color: "var(--text-secondary)" }
+                }
               >
                 {cat}
               </button>
@@ -332,17 +333,18 @@ export default function ProductCatalog({
 
           {/* Filtre Collections */}
           <div className="flex flex-wrap items-center gap-1.5 pt-2">
-            <span className="text-xs font-mono text-stone-500 uppercase mr-4">Collection :</span>
+            <span className="text-xs font-mono uppercase mr-4" style={{ color: "var(--text-tertiary)" }}>Collection :</span>
             {collections.map(col => (
               <button
                 key={col}
                 id={`filter-collection-${col.toLowerCase()}`}
                 onClick={() => setActiveCollection(col)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium tracking-wide transition-all cursor-pointer ${
-                  activeCollection === col 
-                    ? "bg-stone-100 text-stone-900 font-semibold" 
-                    : "bg-slate-950 border border-white/5 text-stone-400 hover:text-stone-200"
-                }`}
+                className="btn-press px-3 py-1.5 rounded-lg text-xs font-medium tracking-wide transition-all cursor-pointer"
+                style={
+                  activeCollection === col
+                    ? { background: "var(--text-primary)", color: "var(--bg-base)", fontWeight: 600 }
+                    : { background: "var(--bg-card)", border: "1px solid var(--border-subtle)", color: "var(--text-secondary)" }
+                }
               >
                 {col === "Toutes" ? col : `Erg ${col}`}
               </button>
@@ -354,13 +356,14 @@ export default function ProductCatalog({
         {isLoading ? (
           <ProductCatalogSkeleton />
         ) : filteredProducts.length === 0 ? (
-          <div className="text-center py-20 bg-slate-950 rounded-2xl border border-white/5">
-            <Compass className="w-12 h-12 mx-auto text-stone-600 animate-pulse mb-4" />
-            <p className="text-stone-400 font-light">Aucun modèle ne correspond à vos critères de recherche.</p>
+          <div className="text-center py-20 rounded-2xl" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)" }}>
+            <Compass className="w-12 h-12 mx-auto animate-pulse mb-4" style={{ color: "var(--text-tertiary)" }} />
+            <p className="font-light" style={{ color: "var(--text-secondary)" }}>Aucun modèle ne correspond à vos critères de recherche.</p>
             <button
               id="clear-filters-btn"
               onClick={() => { setActiveCategory("Tout"); setActiveCollection("Toutes"); setSearchQuery(""); }}
-              className="mt-4 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-xs text-stone-200 rounded-lg transition-all"
+              className="btn-press mt-4 px-4 py-2 rounded-lg text-xs transition-all"
+              style={{ background: "var(--bg-elevated)", border: "1px solid var(--border-default)", color: "var(--text-primary)" }}
             >
               Réinitialiser les filtres
             </button>
@@ -377,10 +380,11 @@ export default function ProductCatalog({
                   id={`product-card-${product.id}`}
                   onMouseMove={handleMouseMove}
                   onMouseLeave={handleMouseLeave}
-                  className="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-slate-950/40 border border-white/5 hover:border-white/10 transition-all duration-500 backdrop-blur-md"
+                  className="group relative flex flex-col justify-between overflow-hidden rounded-2xl transition-all duration-500"
+                  style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", backdropFilter: "blur(12px)" }}
                 >
                   {/* IMAGE & BADGES */}
-                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-950">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden" style={{ background: "var(--bg-elevated)" }}>
                     <img 
                       src={product.image} 
                       alt={product.name} 
@@ -390,10 +394,10 @@ export default function ProductCatalog({
                     />
 
                     {/* Dégradé visuel */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-90" />
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top, var(--bg-base) 0%, transparent 60%)", opacity: 0.85 }} />
 
                     {/* Collection badge */}
-                    <span className="absolute top-4 left-4 bg-black/60 border border-white/10 text-sky-400 font-mono text-[10px] tracking-widest uppercase px-2 py-1 rounded-md">
+                    <span className="absolute top-4 left-4 font-mono text-[10px] tracking-widest uppercase px-2 py-1 rounded-md" style={{ background: "var(--bg-overlay)", border: "1px solid var(--border-default)", color: "var(--accent)" }}>
                       Collection {product.collection}
                     </span>
 
@@ -401,11 +405,10 @@ export default function ProductCatalog({
                     <div className="absolute top-4 right-4 z-15 flex flex-col items-end gap-2">
                       <button
                         onClick={(e) => triggerShare(e, product.id)}
-                        className={`p-2 rounded-full border backdrop-blur-md transition-all duration-300 cursor-pointer ${
-                          sharingProductId === product.id
-                            ? "bg-sky-500 border-sky-400 text-stone-950"
-                            : "bg-slate-950/80 border-white/10 text-stone-300 hover:text-sky-400 hover:border-sky-500/30"
-                        }`}
+                        className="p-2 rounded-full border backdrop-blur-md transition-all duration-300 cursor-pointer"
+                        style={sharingProductId === product.id
+                          ? { background: "var(--accent)", borderColor: "var(--accent)", color: "#fff" }
+                          : { background: "var(--bg-overlay)", borderColor: "var(--border-default)", color: "var(--text-secondary)" }}
                         title="Partager ce produit"
                       >
                         <Share2 className="w-3.5 h-3.5" />
@@ -413,36 +416,32 @@ export default function ProductCatalog({
 
                       {sharingProductId === product.id && (
                         <div 
-                          className="bg-slate-950/95 border border-sky-500/30 rounded-xl p-2 flex flex-col gap-1 shadow-2xl backdrop-blur-lg animate-fade-in text-[10px] min-w-[130px]"
+                          className="rounded-xl p-2 flex flex-col gap-1 shadow-2xl backdrop-blur-lg text-[10px] min-w-[130px]"
+                          style={{ background: "var(--bg-overlay)", border: "1px solid var(--accent-border)" }}
                           onClick={(e) => e.stopPropagation()}
                         >
-                          <a
-                            href={getShareUrl("twitter", product)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-stone-300 hover:text-white hover:bg-white/5 transition-colors"
+                          <a href={getShareUrl("twitter", product)} target="_blank" rel="noopener noreferrer"
+                            className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition-colors"
+                            style={{ color: "var(--text-secondary)" }}
                           >
                             <span>🐦 Twitter / X</span>
                           </a>
-                          <a
-                            href={getShareUrl("facebook", product)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-stone-300 hover:text-white hover:bg-white/5 transition-colors"
+                          <a href={getShareUrl("facebook", product)} target="_blank" rel="noopener noreferrer"
+                            className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition-colors"
+                            style={{ color: "var(--text-secondary)" }}
                           >
                             <span>👥 Facebook</span>
                           </a>
-                          <a
-                            href={getShareUrl("whatsapp", product)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-stone-300 hover:text-white hover:bg-white/5 transition-colors"
+                          <a href={getShareUrl("whatsapp", product)} target="_blank" rel="noopener noreferrer"
+                            className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition-colors"
+                            style={{ color: "var(--text-secondary)" }}
                           >
                             <span>💬 WhatsApp</span>
                           </a>
                           <button
                             onClick={(e) => copyShareLink(e, product)}
-                            className="flex items-center justify-between w-full px-2.5 py-1.5 rounded-lg text-stone-300 hover:text-white hover:bg-white/5 transition-colors cursor-pointer text-left"
+                            className="flex items-center justify-between w-full px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer text-left"
+                            style={{ color: "var(--text-secondary)" }}
                           >
                             <span className="flex items-center gap-2">🔗 Copier le lien</span>
                             {copiedProductId === product.id && (
@@ -457,7 +456,8 @@ export default function ProductCatalog({
                     <button
                       id={`quick-view-${product.id}`}
                       onClick={() => onSelectProduct(product)}
-                      className="absolute bottom-4 right-4 p-2.5 rounded-full bg-white/10 border border-white/15 text-stone-200 hover:text-white hover:bg-sky-900 transition-all backdrop-blur-md cursor-pointer opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
+                      className="absolute bottom-4 right-4 p-2.5 rounded-full backdrop-blur-md transition-all cursor-pointer opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
+                      style={{ background: "var(--bg-overlay)", border: "1px solid var(--border-default)", color: "var(--text-primary)" }}
                       title="Analyse architecturale 3D"
                     >
                       <Eye className="w-4 h-4" />
@@ -468,21 +468,21 @@ export default function ProductCatalog({
                   <div className="p-6 flex flex-col flex-1 justify-between space-y-4">
                     <div className="space-y-1">
                       <div className="flex justify-between items-start gap-2">
-                        <h3 className="font-serif text-lg leading-tight text-stone-100 group-hover:text-amber-200 transition-colors">
+                        <h3 className="font-serif text-lg leading-tight transition-colors" style={{ color: "var(--text-primary)" }}>
                           {product.name}
                         </h3>
                       </div>
-                      <p className="text-base text-amber-200/90 font-arabic font-normal">{product.arabicName}</p>
-                      <p className="text-stone-400 text-xs font-light line-clamp-2 leading-relaxed">
+                      <p className="text-base font-arabic font-normal" style={{ color: "var(--text-accent)" }}>{product.arabicName}</p>
+                      <p className="text-xs font-light line-clamp-2 leading-relaxed" style={{ color: "var(--text-secondary)" }}>
                         {product.description}
                       </p>
                     </div>
 
                     {/* FINITION SELECTOR */}
-                    <div className="space-y-2 pt-2 border-t border-white/5">
-                      <div className="flex justify-between text-[10px] text-stone-400 font-mono tracking-wider uppercase">
+                     <div className="space-y-2 pt-2" style={{ borderTop: "1px solid var(--border-subtle)" }}>
+                      <div className="flex justify-between text-[10px] font-mono tracking-wider uppercase" style={{ color: "var(--text-tertiary)" }}>
                         <span>Finition active :</span>
-                        <span className="text-stone-200 font-medium">{selectedMat.name}</span>
+                        <span style={{ color: "var(--text-primary)" }}>{selectedMat.name}</span>
                       </div>
                       <div className="flex gap-1.5">
                         {product.materials.map(mat => (
@@ -490,15 +490,15 @@ export default function ProductCatalog({
                             key={mat.id}
                             id={`card-swatch-${product.id}-${mat.id}`}
                             onClick={() => handleMaterialSelect(product.id, mat.id)}
-                            className={`w-7 h-7 rounded-full border transition-all duration-300 flex items-center justify-center relative cursor-pointer ${
-                              selectedMat.id === mat.id ? "border-sky-500 scale-110 shadow shadow-sky-500/20" : "border-slate-800 hover:border-slate-600"
-                            }`}
-                            style={{ backgroundColor: mat.colorHex }}
+                             className={`w-7 h-7 rounded-full border transition-all duration-300 flex items-center justify-center relative cursor-pointer ${
+                               selectedMat.id === mat.id ? "border-sky-500 scale-110 shadow shadow-sky-500/20" : ""
+                             }`}
+                             style={{ backgroundColor: mat.colorHex, borderColor: selectedMat.id === mat.id ? undefined : "var(--border-default)" }}
                           >
                             {selectedMat.id === mat.id && (
                               <Check className="w-3 h-3 text-white mix-blend-difference" />
                             )}
-                            <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 bg-slate-950 text-[8px] text-stone-200 px-1 py-0.5 rounded opacity-0 hover:opacity-100 transition-opacity whitespace-nowrap z-20 font-mono">
+                            <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 text-[8px] px-1 py-0.5 rounded opacity-0 hover:opacity-100 transition-opacity whitespace-nowrap z-20 font-mono" style={{ background: "var(--bg-overlay)", color: "var(--text-primary)" }}>
                               {mat.name}
                             </span>
                           </button>
@@ -507,17 +507,17 @@ export default function ProductCatalog({
                     </div>
 
                     {/* DIMENSIONS & TARIFS */}
-                    <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                    <div className="flex items-center justify-between pt-4" style={{ borderTop: "1px solid var(--border-subtle)" }}>
                       <div className="space-y-0.5">
-                        <span className="text-[10px] text-stone-500 font-mono uppercase tracking-wider">Dimensions</span>
-                        <p className="text-[11px] text-stone-300 font-mono">
+                        <span className="text-[10px] font-mono uppercase tracking-wider" style={{ color: "var(--text-tertiary)" }}>Dimensions</span>
+                        <p className="text-[11px] font-mono" style={{ color: "var(--text-secondary)" }}>
                           {product.dimensions.width}m × {product.dimensions.depth}m × {product.dimensions.height}m
                         </p>
                       </div>
 
                       <div className="text-right">
-                        <span className="text-[10px] text-stone-500 font-mono uppercase tracking-wider block">Tarif</span>
-                        <span className="text-lg font-serif font-bold text-amber-200/95">
+                        <span className="text-[10px] font-mono uppercase tracking-wider block" style={{ color: "var(--text-tertiary)" }}>Tarif</span>
+                        <span className="text-lg font-serif font-bold" style={{ color: "var(--text-accent)" }}>
                           {totalPrice.toLocaleString("fr-DZ")} DZD
                         </span>
                       </div>
@@ -534,7 +534,8 @@ export default function ProductCatalog({
                           onSelectProduct(product);
                         }
                       }}
-                      className="w-full flex items-center justify-center gap-2 py-3 bg-sky-950/80 hover:bg-sky-900 border border-sky-500/30 text-sky-300 hover:text-white transition-all cursor-pointer shadow-md uppercase tracking-wider font-mono text-[11px] rounded-xl"
+                      className="btn-press w-full flex items-center justify-center gap-2 py-3 rounded-xl transition-all cursor-pointer uppercase tracking-wider font-mono text-[11px]"
+                      style={{ background: "var(--accent-bg)", border: "1px solid var(--accent-border)", color: "var(--accent)" }}
                     >
                       Prendre Rendez-vous / Devis
                     </button>

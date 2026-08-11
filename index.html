@@ -1,14 +1,29 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mobimall — Mobilier de Prestige</title>
+    <title>Mobimall — Mobilier de Prestige Algérien</title>
+    <meta name="description" content="Mobimall, le premier showroom numérique 3D de mobilier d'exception en Algérie. Découvrez nos collections de luxe à Alger, Oran et Constantine." />
     <link rel="icon" type="image/jpeg" href="/assets/images/mobimall_favicon_1784651569714.jpg" />
+
+    <!-- Inter from Google Fonts — optical sizing, variable weight -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,300..500&family=Playfair+Display:ital,wght@0,500..700;1,500..600&display=swap" rel="stylesheet" />
+
+    <!-- Theme flash prevention: runs synchronously before React mounts -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem('mobimall-theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = stored || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-

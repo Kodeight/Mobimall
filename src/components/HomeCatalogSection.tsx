@@ -95,28 +95,29 @@ export default function HomeCatalogSection({
   };
 
   return (
-    <section 
-      id="home-catalogue-section" 
-      className="py-24 px-6 lg:px-16 bg-[#02040a] text-stone-100 border-t border-white/5"
+    <section
+      id="home-catalogue-section"
+      className="py-24 px-6 lg:px-16 border-t"
+      style={{ background: "var(--bg-mid)", color: "var(--text-primary)", borderColor: "var(--border-subtle)" }}
     >
       <div className="max-w-7xl mx-auto space-y-16">
         
         {/* EN-TÊTE DE SECTION */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-4 max-w-2xl">
-            <span className="text-xs font-mono tracking-widest text-sky-400 uppercase block">
+            <span className="type-label block" style={{ color: "var(--accent)" }}>
               La Collection Signature
             </span>
-            <h2 className="text-4xl sm:text-5xl font-serif tracking-tight text-stone-100 leading-none">
+            <h2 className="type-h2 leading-none" style={{ color: "var(--text-primary)" }}>
               Le Catalogue d'Art Mobimall
             </h2>
-            <p className="text-stone-400 text-sm font-light leading-relaxed">
+            <p className="type-body-sm font-light leading-relaxed" style={{ color: "var(--text-secondary)" }}>
               Explorez nos créations d'exception. Chaque pièce est façonnée sur mesure dans nos ateliers avec les plus belles essences locales.
             </p>
           </div>
 
           {/* SÉLECTEUR DE CATÉGORIES */}
-          <div className="flex flex-wrap gap-2 bg-slate-950 border border-white/5 p-1.5 rounded-xl self-start md:self-end">
+          <div className="flex flex-wrap gap-2 p-1.5 rounded-xl self-start md:self-end" style={{ background: "var(--bg-elevated)", border: "1px solid var(--border-subtle)" }}>
             {categories.map((cat) => (
               <button
                 key={cat}
@@ -146,14 +147,15 @@ export default function HomeCatalogSection({
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6 }}
+                transition={{ type: "spring", bounce: 0, duration: 0.6 }}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
-                className={`relative group rounded-2xl bg-slate-950/40 border transition-all duration-500 overflow-hidden flex flex-col justify-between ${
-                  isCurrentlySelected
-                    ? "border-sky-500 bg-slate-950/60 ring-1 ring-sky-500/20"
-                    : "border-white/5 hover:border-white/10"
-                }`}
+                className="relative group rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-500"
+                style={{
+                  background: isCurrentlySelected ? "var(--bg-elevated)" : "var(--bg-card)",
+                  border: `1px solid ${isCurrentlySelected ? "var(--accent-border)" : "var(--border-subtle)"}`,
+                  boxShadow: isCurrentlySelected ? "var(--shadow-glow)" : "none",
+                }}
               >
                 {/* Aperçu visuel */}
                 <div className="relative aspect-[4/3] overflow-hidden bg-slate-950">
@@ -164,10 +166,10 @@ export default function HomeCatalogSection({
                     loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/25 to-transparent" />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, var(--bg-base) 0%, transparent 60%)", opacity: 0.9 }} />
                   
                   {/* Catégorie */}
-                  <span className="absolute top-4 left-4 bg-slate-950/80 border border-white/10 text-[9px] font-mono uppercase tracking-widest text-sky-400 px-2.5 py-1 rounded-full backdrop-blur-md">
+                  <span className="absolute top-4 left-4 border text-[9px] font-mono uppercase tracking-widest px-2.5 py-1 rounded-full backdrop-blur-md" style={{ background: "var(--bg-overlay)", borderColor: "var(--border-subtle)", color: "var(--accent)" }}>
                     {product.category}
                   </span>
 
@@ -175,11 +177,10 @@ export default function HomeCatalogSection({
                   <div className="absolute top-4 right-4 z-15 flex flex-col items-end gap-2">
                     <button
                       onClick={(e) => triggerShare(e, product.id)}
-                      className={`p-2 rounded-full border backdrop-blur-md transition-all duration-300 cursor-pointer ${
-                        sharingProductId === product.id
-                          ? "bg-sky-500 border-sky-400 text-stone-950"
-                          : "bg-slate-950/80 border-white/10 text-stone-300 hover:text-sky-400 hover:border-sky-500/30"
-                      }`}
+                      className="p-2 rounded-full border backdrop-blur-md transition-all duration-300 cursor-pointer"
+                      style={sharingProductId === product.id
+                        ? { background: "var(--accent)", borderColor: "var(--accent)", color: "#fff" }
+                        : { background: "var(--bg-overlay)", borderColor: "var(--border-default)", color: "var(--text-secondary)" }}
                       title="Partager ce produit"
                     >
                       <Share2 className="w-3.5 h-3.5" />
@@ -187,14 +188,16 @@ export default function HomeCatalogSection({
 
                     {sharingProductId === product.id && (
                       <div 
-                        className="bg-slate-950/95 border border-sky-500/30 rounded-xl p-2 flex flex-col gap-1 shadow-2xl backdrop-blur-lg animate-fade-in text-[10px] min-w-[130px]"
+                        className="rounded-xl p-2 flex flex-col gap-1 shadow-2xl backdrop-blur-lg text-[10px] min-w-[130px]"
+                        style={{ background: "var(--bg-overlay)", border: "1px solid var(--accent-border)" }}
                         onClick={(e) => e.stopPropagation()}
                       >
                         <a
                           href={getShareUrl("twitter", product)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-stone-300 hover:text-white hover:bg-white/5 transition-colors"
+                          className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition-colors"
+                          style={{ color: "var(--text-secondary)" }}
                         >
                           <span>🐦 Twitter / X</span>
                         </a>
@@ -202,7 +205,8 @@ export default function HomeCatalogSection({
                           href={getShareUrl("facebook", product)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-stone-300 hover:text-white hover:bg-white/5 transition-colors"
+                          className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition-colors"
+                          style={{ color: "var(--text-secondary)" }}
                         >
                           <span>👥 Facebook</span>
                         </a>
@@ -210,13 +214,15 @@ export default function HomeCatalogSection({
                           href={getShareUrl("whatsapp", product)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-stone-300 hover:text-white hover:bg-white/5 transition-colors"
+                          className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition-colors"
+                          style={{ color: "var(--text-secondary)" }}
                         >
                           <span>💬 WhatsApp</span>
                         </a>
                         <button
                           onClick={(e) => copyShareLink(e, product)}
-                          className="flex items-center justify-between w-full px-2.5 py-1.5 rounded-lg text-stone-300 hover:text-white hover:bg-white/5 transition-colors cursor-pointer text-left"
+                          className="flex items-center justify-between w-full px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer text-left"
+                          style={{ color: "var(--text-secondary)" }}
                         >
                           <span className="flex items-center gap-2">🔗 Copier le lien</span>
                           {copiedProductId === product.id && (
@@ -229,7 +235,7 @@ export default function HomeCatalogSection({
 
                   {/* Indicateur de Sélection */}
                   {isCurrentlySelected && (
-                    <span className="absolute top-4 right-14 bg-sky-500 text-stone-950 text-[10px] font-mono uppercase tracking-widest px-3 py-1 rounded-full font-bold flex items-center gap-1.5 shadow-lg shadow-sky-500/20">
+                    <span className="absolute top-4 right-14 text-[10px] font-mono uppercase tracking-widest px-3 py-1 rounded-full font-bold flex items-center gap-1.5 shadow-lg" style={{ background: "var(--accent)", color: "#fff" }}>
                       <Check className="w-3 h-3 stroke-[3]" /> Actif 3D
                     </span>
                   )}
@@ -237,12 +243,12 @@ export default function HomeCatalogSection({
                   {/* Prix initial & Collection */}
                   <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
                     <div className="space-y-0.5">
-                      <p className="text-[10px] font-mono text-stone-400 tracking-wider uppercase">Collection</p>
-                      <p className="text-xs text-stone-200 font-medium">{product.collection}</p>
+                      <p className="text-[10px] font-mono tracking-wider uppercase" style={{ color: "var(--text-tertiary)" }}>Collection</p>
+                      <p className="text-xs font-medium" style={{ color: "var(--text-primary)" }}>{product.collection}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-[10px] font-mono text-stone-400 tracking-wider uppercase">Tarif</p>
-                      <p className="text-xl font-serif font-bold text-amber-200/95">
+                      <p className="text-[10px] font-mono tracking-wider uppercase" style={{ color: "var(--text-tertiary)" }}>Tarif</p>
+                      <p className="text-xl font-serif font-bold" style={{ color: "var(--text-accent)" }}>
                         {product.basePrice.toLocaleString("fr-DZ")} DZD
                       </p>
                     </div>
@@ -250,35 +256,35 @@ export default function HomeCatalogSection({
                 </div>
 
                 {/* Descriptif détaillé */}
-                <div className="p-6 space-y-4 flex-1 flex flex-col justify-between bg-slate-950/20">
+                <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
                   <div className="space-y-2">
                     <div className="flex justify-between items-start gap-2">
-                      <h3 className="text-lg font-serif tracking-tight text-stone-200 leading-tight group-hover:text-amber-200 transition-colors">
+                      <h3 className="type-h3 leading-tight transition-colors" style={{ color: "var(--text-primary)" }}>
                         {product.name}
                       </h3>
                     </div>
-                    <p className="text-base text-amber-200/90 font-arabic text-right font-normal tracking-wide">
+                    <p className="text-base font-arabic text-right font-normal tracking-wide" style={{ color: "var(--text-accent)" }}>
                       {product.arabicName}
                     </p>
-                    <p className="text-xs text-stone-400 font-light leading-relaxed line-clamp-3">
+                    <p className="text-xs font-light leading-relaxed line-clamp-3" style={{ color: "var(--text-secondary)" }}>
                       {product.description}
                     </p>
                   </div>
 
                   {/* Matières d'habillage */}
-                  <div className="space-y-2 pt-2 border-t border-white/5">
-                    <span className="text-[9px] font-mono text-stone-500 uppercase tracking-widest block">
+                  <div className="space-y-2 pt-2" style={{ borderTop: "1px solid var(--border-subtle)" }}>
+                    <span className="text-[9px] font-mono uppercase tracking-widest block" style={{ color: "var(--text-tertiary)" }}>
                       Options d'habillage ({product.materials.length})
                     </span>
                     <div className="flex gap-2">
                       {product.materials.map((mat) => (
                         <div
                           key={mat.id}
-                          className="w-5 h-5 rounded-full border border-white/10 relative group/swatch"
-                          style={{ backgroundColor: mat.colorHex }}
+                          className="w-5 h-5 rounded-full border relative group/swatch"
+                          style={{ backgroundColor: mat.colorHex, borderColor: "var(--border-default)" }}
                           title={mat.name}
                         >
-                          <span className="absolute bottom-7 left-1/2 -translate-x-1/2 bg-slate-950 text-[8px] text-stone-200 px-2 py-0.5 rounded opacity-0 group-hover/swatch:opacity-100 transition-opacity whitespace-nowrap z-20 font-mono border border-white/5 pointer-events-none">
+                          <span className="absolute bottom-7 left-1/2 -translate-x-1/2 text-[8px] px-2 py-0.5 rounded opacity-0 group-hover/swatch:opacity-100 transition-opacity whitespace-nowrap z-20 font-mono border pointer-events-none" style={{ background: "var(--bg-overlay)", color: "var(--text-primary)", borderColor: "var(--border-subtle)" }}>
                             {mat.name}
                           </span>
                         </div>
@@ -298,7 +304,8 @@ export default function HomeCatalogSection({
                           onSelectProduct(product);
                         }
                       }}
-                      className="w-full flex items-center justify-center gap-2 py-3 bg-sky-950/80 hover:bg-sky-900 border border-sky-500/30 text-sky-300 hover:text-white rounded-xl transition-all text-xs font-mono uppercase tracking-wider cursor-pointer shadow-lg hover:shadow-sky-500/10"
+                      className="btn-press w-full flex items-center justify-center gap-2 py-3 rounded-xl transition-all cursor-pointer uppercase tracking-wider font-mono text-[11px]"
+                      style={{ background: "var(--accent-bg)", border: "1px solid var(--accent-border)", color: "var(--accent)" }}
                     >
                       <span>Prendre Rendez-vous / Devis</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />

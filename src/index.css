@@ -1,29 +1,365 @@
 @import "tailwindcss";
 
+/* ============================================================
+   MOBIMALL — DESIGN SYSTEM
+   Apple-inspired token system: light & dark, typography, motion
+   ============================================================ */
+
+/* --- Google Font declaration (loaded via index.html) ------- */
+/* Inter: optical sizing 14–32, weight 300–700                 */
+/* Playfair Display: weight 500–700, italic variant            */
+
+/* --- Custom @theme for Tailwind v4 ------------------------- */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+  --font-mono: ui-monospace, "SF Mono", "Fira Code", monospace;
+}
+
+/* ============================================================
+   DESIGN TOKENS — Dark Mode (default)
+   ============================================================ */
+:root,
+[data-theme="dark"] {
+  /* Backgrounds */
+  --bg-base:        #04060c;
+  --bg-mid:         #070b18;
+  --bg-elevated:    #0d1120;
+  --bg-overlay:     rgba(4, 6, 12, 0.92);
+  --bg-card:        rgba(15, 18, 32, 0.60);
+  --bg-card-hover:  rgba(20, 25, 42, 0.70);
+
+  /* Surfaces / Materials */
+  --surface-glass:  rgba(255, 255, 255, 0.04);
+  --surface-inset:  rgba(0, 0, 0, 0.30);
+
+  /* Borders */
+  --border-subtle:  rgba(255, 255, 255, 0.05);
+  --border-default: rgba(255, 255, 255, 0.10);
+  --border-strong:  rgba(255, 255, 255, 0.18);
+
+  /* Text */
+  --text-primary:   #f1f0ee;
+  --text-secondary: #a8a29e;
+  --text-tertiary:  #57534e;
+  --text-accent:    #e2b97a;   /* warm amber — Algerian gold */
+  --text-link:      #7ec8e3;
+
+  /* Accent — sky blue */
+  --accent:         #0ea5e9;
+  --accent-dim:     #0284c7;
+  --accent-bg:      rgba(14, 165, 233, 0.08);
+  --accent-border:  rgba(14, 165, 233, 0.25);
+
+  /* Shadows */
+  --shadow-sm:      0 1px 3px rgba(0,0,0,0.40), 0 1px 2px rgba(0,0,0,0.30);
+  --shadow-md:      0 4px 16px rgba(0,0,0,0.50), 0 2px 6px rgba(0,0,0,0.30);
+  --shadow-lg:      0 12px 40px rgba(0,0,0,0.60), 0 4px 12px rgba(0,0,0,0.40);
+  --shadow-glow:    0 0 40px rgba(14, 165, 233, 0.12);
+
+  /* 3D scene */
+  --scene-bg:       #04060c;
+  --scene-fog:      #04060c;
+
+  /* Nav */
+  --nav-bg-idle:    rgba(4, 6, 12, 0.75);
+  --nav-bg-scrolled:rgba(4, 6, 12, 0.95);
+  --nav-border:     rgba(255, 255, 255, 0.06);
+
+  /* Scrollbar */
+  --scrollbar-track: #02040a;
+  --scrollbar-thumb: #1e293b;
+  --scrollbar-hover: #0284c7;
+
+  /* Sparkle color */
+  --sparkle-color:  rgba(200, 220, 255, 0.70);
+
+  /* Negative shadow — dark mode: warm muted glow */
+  --neg-shadow-inner: rgba(180, 160, 100, 0.12);
+  --neg-shadow-mid:   rgba(100, 120, 200, 0.06);
+  --neg-shadow-outer: transparent;
+
+  /* Map Filter */
+  --map-filter: invert(90%) hue-rotate(180deg) brightness(88%) contrast(92%) grayscale(25%);
+}
+
+/* ============================================================
+   DESIGN TOKENS — Light Mode
+   ============================================================ */
+[data-theme="light"] {
+  /* Backgrounds */
+  --bg-base:        #f8f6f2;
+  --bg-mid:         #f2efe9;
+  --bg-elevated:    #ffffff;
+  --bg-overlay:     rgba(248, 246, 242, 0.94);
+  --bg-card:        rgba(255, 255, 255, 0.80);
+  --bg-card-hover:  rgba(255, 255, 255, 0.95);
+
+  /* Surfaces / Materials */
+  --surface-glass:  rgba(255, 255, 255, 0.60);
+  --surface-inset:  rgba(0, 0, 0, 0.04);
+
+  /* Borders */
+  --border-subtle:  rgba(0, 0, 0, 0.06);
+  --border-default: rgba(0, 0, 0, 0.12);
+  --border-strong:  rgba(0, 0, 0, 0.20);
+
+  /* Text */
+  --text-primary:   #1c1917;
+  --text-secondary: #57534e;
+  --text-tertiary:  #a8a29e;
+  --text-accent:    #92620a;   /* warm amber in light */
+  --text-link:      #0369a1;
+
+  /* Accent */
+  --accent:         #0284c7;
+  --accent-dim:     #0369a1;
+  --accent-bg:      rgba(2, 132, 199, 0.08);
+  --accent-border:  rgba(2, 132, 199, 0.25);
+
+  /* Shadows */
+  --shadow-sm:      0 1px 3px rgba(0,0,0,0.10), 0 1px 2px rgba(0,0,0,0.08);
+  --shadow-md:      0 4px 16px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06);
+  --shadow-lg:      0 12px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-glow:    0 0 40px rgba(2, 132, 199, 0.10);
+
+  /* 3D scene */
+  --scene-bg:       #f0ede7;
+  --scene-fog:      #f0ede7;
+
+  /* Nav */
+  --nav-bg-idle:    rgba(248, 246, 242, 0.80);
+  --nav-bg-scrolled:rgba(248, 246, 242, 0.96);
+  --nav-border:     rgba(0, 0, 0, 0.08);
+
+  /* Scrollbar */
+  --scrollbar-track: #e8e4de;
+  --scrollbar-thumb: #c4bfb8;
+  --scrollbar-hover: #0284c7;
+
+  /* Sparkle color */
+  --sparkle-color:  rgba(80, 100, 160, 0.50);
+
+  /* Negative shadow — light mode: soft warm depression */
+  --neg-shadow-inner: rgba(0, 0, 0, 0.14);
+  --neg-shadow-mid:   rgba(0, 0, 0, 0.05);
+  --neg-shadow-outer: transparent;
+
+  /* Map Filter */
+  --map-filter: none;
+}
+
+/* ============================================================
+   THEME TRANSITION — subtle, not theatrical
+   ============================================================ */
+html {
+  /* Only transition color-related properties, not everything */
+  transition:
+    background-color 220ms ease,
+    color 200ms ease;
+}
+
+/* Prevent transition on first load (before JS runs) */
+html.no-transition * {
+  transition: none !important;
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+::selection {
+  background: var(--accent-bg);
+  color: var(--text-primary);
+}
+
+/* ============================================================
+   TYPOGRAPHY SCALE — Apple optical sizing principles
+   Large display = tight tracking; body = comfortable
+   ============================================================ */
+
+/* Display — hero headlines */
+.type-display {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+/* Heading 1 */
+.type-h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.5vw + 0.5rem, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.10;
+}
+
+/* Heading 2 */
+.type-h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 2.5vw + 0.25rem, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+/* Heading 3 */
+.type-h3 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.125rem, 1.5vw + 0.25rem, 1.5rem);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+/* Body — comfortable reading */
+.type-body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.65;
+}
+
+/* Body small */
+.type-body-sm {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.6;
+}
+
+/* Label / Caption — uppercase tracking for tiny labels only */
+.type-label {
+  font-family: var(--font-mono);
+  font-size: 0.70rem;
+  font-weight: 500;
+  letter-spacing: 0.10em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   SCROLLBARS
+   ============================================================ */
 @layer utilities {
-  /* Custom Luxury Dark Scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #02040a;
-  }
-
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
   ::-webkit-scrollbar-thumb {
-    background: #1e293b;
+    background: var(--scrollbar-thumb);
     border-radius: 9999px;
-    border: 2px solid #02040a;
+    border: 2px solid var(--scrollbar-track);
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-hover); }
+  * { scrollbar-width: thin; scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track); }
+}
+
+/* ============================================================
+   SPARKLE ANIMATIONS
+   ============================================================ */
+@keyframes sparkle-twinkle {
+  0%, 100% { opacity: var(--sparkle-min-opacity, 0.1); transform: scale(0.8); }
+  50%       { opacity: var(--sparkle-max-opacity, 0.6); transform: scale(1.2); }
+}
+
+@keyframes sparkle-drift {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50%       { transform: translateY(-4px) scale(1.05); }
+}
+
+.sparkle {
+  position: absolute;
+  pointer-events: none;
+  color: var(--sparkle-color);
+  animation:
+    sparkle-twinkle var(--sparkle-duration, 4s) ease-in-out infinite,
+    sparkle-drift    var(--sparkle-drift-duration, 6s) ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
+/* ============================================================
+   BUTTON PRESS FEEDBACK — Apple "instant, on press" principle
+   ============================================================ */
+.btn-press:active {
+  transform: scale(0.97);
+  transition: transform 80ms ease-out;
+}
+
+/* ============================================================
+   REDUCED MOTION — Accessibility
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    transition: none;
   }
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: #0284c7;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 
-  /* Firefox Scrollbar */
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: #1e293b #02040a;
+  .sparkle {
+    animation: none;
+    opacity: 0.2;
+  }
+}
+
+/* ============================================================
+   REDUCED TRANSPARENCY — Accessibility
+   ============================================================ */
+@media (prefers-reduced-transparency: reduce) {
+  :root,
+  [data-theme="dark"] {
+    --bg-card:       #0d1120;
+    --bg-overlay:    #04060c;
+    --surface-glass: rgba(255, 255, 255, 0.08);
+    --nav-bg-idle:   #04060c;
+  }
+
+  [data-theme="light"] {
+    --bg-card:       #ffffff;
+    --bg-overlay:    #f8f6f2;
+    --surface-glass: rgba(255, 255, 255, 0.95);
+    --nav-bg-idle:   #f8f6f2;
+  }
+}
+
+/* ============================================================
+   HIGH CONTRAST — Accessibility
+   ============================================================ */
+@media (prefers-contrast: more) {
+  :root,
+  [data-theme="dark"] {
+    --border-subtle:  rgba(255, 255, 255, 0.20);
+    --border-default: rgba(255, 255, 255, 0.35);
+    --text-secondary: #d6d3d1;
+    --text-tertiary:  #a8a29e;
+  }
+
+  [data-theme="light"] {
+    --border-subtle:  rgba(0, 0, 0, 0.20);
+    --border-default: rgba(0, 0, 0, 0.35);
+    --text-secondary: #292524;
+    --text-tertiary:  #57534e;
   }
 }

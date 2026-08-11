@@ -56,22 +56,23 @@ export default function ShowroomFAQ() {
   };
 
   return (
-    <section 
-      id="showroom-faq-section" 
-      className="py-24 px-6 lg:px-16 bg-[#04060c] text-stone-100 border-t border-white/5 scroll-mt-24"
+    <section
+      id="showroom-faq-section"
+      className="py-24 px-6 lg:px-16 border-t scroll-mt-24"
+      style={{ background: "var(--bg-mid)", color: "var(--text-primary)", borderColor: "var(--border-subtle)" }}
     >
       <div className="max-w-4xl mx-auto space-y-16">
-        
+
         {/* EN-TÊTE DE SECTION */}
         <div className="text-center space-y-4">
-          <span className="text-xs font-mono tracking-widest text-sky-400 uppercase flex items-center justify-center gap-2">
+          <span className="type-label flex items-center justify-center gap-2" style={{ color: "var(--accent)" }}>
             <HelpCircle className="w-3.5 h-3.5" /> Assistance & Expertise
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif tracking-tight text-stone-100">
+          <h2 className="type-h2" style={{ color: "var(--text-primary)" }}>
             Questions Fréquentes
           </h2>
-          <div className="w-12 h-0.5 bg-sky-400 mx-auto mt-4" />
-          <p className="text-stone-400 text-sm font-light max-w-xl mx-auto pt-2">
+          <div className="w-12 h-0.5 mx-auto mt-4" style={{ background: "var(--accent)" }} />
+          <p className="type-body-sm font-light max-w-xl mx-auto pt-2" style={{ color: "var(--text-secondary)" }}>
             Afin de vous accompagner sereinement dans l'acquisition de nos créations, voici les réponses à vos interrogations sur la logistique d'art et la pérennité de vos meubles.
           </p>
         </div>
@@ -85,36 +86,49 @@ export default function ShowroomFAQ() {
             return (
               <div
                 key={item.id}
-                className={`rounded-2xl border transition-all duration-300 overflow-hidden bg-slate-950/40 ${
-                  isExpanded 
-                    ? "border-sky-500/40 shadow-lg shadow-sky-500/5 bg-slate-950/70" 
-                    : "border-white/5 hover:border-white/10 hover:bg-slate-950/60"
-                }`}
+                className="rounded-2xl overflow-hidden transition-all duration-300"
+                style={{
+                  background: "var(--bg-card)",
+                  border: `1px solid ${isExpanded ? "var(--accent-border)" : "var(--border-subtle)"}`,
+                  boxShadow: isExpanded ? "var(--shadow-glow)" : "none",
+                }}
               >
                 {/* Entête cliquable */}
                 <button
                   id={`faq-btn-${item.id}`}
                   onClick={() => toggleExpand(item.id)}
-                  className="w-full px-6 py-5 sm:px-8 sm:py-6 flex justify-between items-center text-left gap-4 cursor-pointer focus:outline-none"
+                  className="btn-press w-full px-6 py-5 sm:px-8 sm:py-6 flex justify-between items-center text-left gap-4 cursor-pointer focus:outline-none"
                 >
                   <div className="flex gap-4 items-center">
-                    <div className={`p-2.5 rounded-xl border transition-colors ${
-                      isExpanded ? "bg-sky-950/40 border-sky-500/30 text-sky-400" : "bg-slate-900 border-white/5 text-stone-400"
-                    }`}>
+                    <div
+                      className="p-2.5 rounded-xl border transition-colors"
+                      style={{
+                        background: isExpanded ? "var(--accent-bg)" : "var(--bg-elevated)",
+                        borderColor: isExpanded ? "var(--accent-border)" : "var(--border-default)",
+                        color: isExpanded ? "var(--accent)" : "var(--text-tertiary)",
+                      }}
+                    >
                       <Icon className="w-4 h-4 shrink-0" />
                     </div>
                     <div className="space-y-1">
-                      <h3 className="text-sm sm:text-base font-serif text-stone-200 tracking-tight leading-snug">
+                      <h3 className="type-h3 leading-snug" style={{ color: "var(--text-primary)" }}>
                         {item.question}
                       </h3>
-                      <p className="text-sm sm:text-base text-amber-200/90 font-arabic text-left font-normal tracking-wide">
+                      <p
+                        className="text-sm sm:text-base font-arabic text-left font-normal tracking-wide"
+                        style={{ color: "var(--text-accent)", fontStyle: "italic" }}
+                      >
                         {item.arabicQuestion}
                       </p>
                     </div>
                   </div>
-                  <div className={`p-1.5 rounded-lg border border-white/5 text-stone-400 transition-transform duration-300 shrink-0 ${
-                    isExpanded ? "rotate-180 text-sky-400 border-sky-500/20" : ""
-                  }`}>
+                  <div
+                    className={`p-1.5 rounded-lg border transition-all duration-300 shrink-0 ${isExpanded ? "rotate-180" : ""}`}
+                    style={{
+                      borderColor: isExpanded ? "var(--accent-border)" : "var(--border-subtle)",
+                      color: isExpanded ? "var(--accent)" : "var(--text-tertiary)",
+                    }}
+                  >
                     <ChevronDown className="w-4 h-4" />
                   </div>
                 </button>
@@ -127,12 +141,15 @@ export default function ShowroomFAQ() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      transition={{ type: "spring", bounce: 0, duration: 0.35 }}
                     >
-                      <div className="px-6 pb-6 pt-1 sm:px-8 sm:pb-7 border-t border-white/5 text-xs sm:text-sm text-stone-400 font-light leading-relaxed space-y-4">
+                      <div
+                        className="px-6 pb-6 pt-1 sm:px-8 sm:pb-7 type-body-sm font-light leading-relaxed space-y-4"
+                        style={{ borderTop: "1px solid var(--border-subtle)", color: "var(--text-secondary)" }}
+                      >
                         <p>{item.answer}</p>
-                        <div className="flex items-center gap-1.5 text-[10px] text-sky-400/80 font-mono uppercase tracking-wider">
-                          <Sparkles className="w-3 h-3 animate-pulse" /> Charte d'Excellence Mobimall
+                        <div className="flex items-center gap-1.5 type-label" style={{ color: "var(--accent)" }}>
+                          <Sparkles className="w-3 h-3" /> Charte d'Excellence Mobimall
                         </div>
                       </div>
                     </motion.div>
@@ -144,17 +161,27 @@ export default function ShowroomFAQ() {
         </div>
 
         {/* BESOIN D'ASSISTANCE COMPLÉMENTAIRE */}
-        <div className="p-6 rounded-2xl bg-sky-950/10 border border-sky-500/10 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div
+          className="p-6 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-6"
+          style={{ background: "var(--accent-bg)", border: "1px solid var(--accent-border)" }}
+        >
           <div className="space-y-1 text-center sm:text-left">
-            <h4 className="text-sm font-semibold text-stone-200">Vous avez une autre question ?</h4>
-            <p className="text-xs text-stone-400 font-light">Notre équipe d'assistance de curation vous répond sous 24h.</p>
+            <h4 className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
+              Vous avez une autre question ?
+            </h4>
+            <p className="type-body-sm font-light" style={{ color: "var(--text-secondary)" }}>
+              Notre équipe d'assistance de curation vous répond sous 24h.
+            </p>
           </div>
           <button
-            onClick={() => {
-              const el = document.getElementById("showroom-footer");
-              el?.scrollIntoView({ behavior: "smooth" });
+            onClick={() => document.getElementById("showroom-footer")?.scrollIntoView({ behavior: "smooth" })}
+            className="btn-press px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider cursor-pointer transition-colors"
+            style={{
+              background: "var(--bg-elevated)",
+              border: "1px solid var(--border-default)",
+              color: "var(--text-secondary)",
+              fontFamily: "var(--font-mono)",
             }}
-            className="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 border border-white/10 hover:border-sky-500/20 text-stone-300 hover:text-sky-400 transition-all rounded-xl text-xs font-mono uppercase tracking-wider cursor-pointer"
           >
             Nous Contacter
           </button>
@@ -164,3 +191,4 @@ export default function ShowroomFAQ() {
     </section>
   );
 }
+

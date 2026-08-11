@@ -56,112 +56,123 @@ export default function ShowroomMap() {
   };
 
   return (
-    <section id="showroom-locations-section" className="py-24 px-6 lg:px-16 bg-[#02040a] text-stone-100 border-t border-white/5 scroll-mt-20">
+    <section id="showroom-locations-section" className="py-24 px-6 lg:px-16 border-t scroll-mt-20" style={{ background: "var(--bg-base)", color: "var(--text-primary)", borderColor: "var(--border-subtle)" }}>
       <div className="max-w-7xl mx-auto space-y-12">
         {/* HEADER */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-2">
-            <span className="text-xs font-mono tracking-widest text-sky-400 uppercase flex items-center gap-2">
+            <span className="type-label flex items-center gap-2" style={{ color: "var(--text-accent)" }}>
               <MapIcon className="w-3.5 h-3.5" /> Réseau de Showrooms
             </span>
-            <h2 className="text-3xl sm:text-4xl font-serif tracking-tight text-stone-100">
+            <h2 className="type-h2" style={{ color: "var(--text-primary)" }}>
               Nos Salons Privés
             </h2>
-            <p className="text-stone-400 text-sm max-w-lg font-light leading-relaxed">
+            <p className="type-body-sm font-light leading-relaxed max-w-lg" style={{ color: "var(--text-secondary)" }}>
               Venez toucher nos matières, admirer les assemblages en chêne de l'Atlas et échanger sur vos projets d'aménagement avec nos experts d'art de vivre.
             </p>
           </div>
-          <div className="flex gap-2">
-            {SHOWROOMS.map((s) => (
-              <button
-                key={s.id}
-                onClick={() => handleSelectShowroom(s.id)}
-                className={`px-4 py-2.5 rounded-xl text-xs font-mono uppercase tracking-wider transition-all border cursor-pointer ${
-                  activeId === s.id
-                    ? "bg-sky-950/40 border-sky-500/50 text-sky-400 font-bold"
-                    : "bg-slate-950/40 border-white/5 text-stone-400 hover:text-stone-200"
-                }`}
-              >
-                {s.city}
-              </button>
-            ))}
+
+          {/* APPLE SEGMENTED CONTROL BUTTONS */}
+          <div className="p-1 rounded-2xl flex gap-1 border" style={{ background: "var(--surface-inset)", borderColor: "var(--border-subtle)" }}>
+            {SHOWROOMS.map((s) => {
+              const isActive = activeId === s.id;
+              return (
+                <button
+                  key={s.id}
+                  onClick={() => handleSelectShowroom(s.id)}
+                  className="px-5 py-2 rounded-xl text-xs font-mono tracking-wider uppercase transition-all duration-200 cursor-pointer"
+                  style={{
+                    background: isActive ? "var(--text-primary)" : "transparent",
+                    color: isActive ? "var(--bg-base)" : "var(--text-secondary)",
+                    fontWeight: isActive ? 600 : 400,
+                    boxShadow: isActive ? "var(--shadow-sm)" : "none",
+                  }}
+                >
+                  {s.city}
+                </button>
+              );
+            })}
           </div>
         </div>
 
         {/* DETAILS & MAP BENTO PANEL */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           {/* LOCATION DETAILS PANEL */}
-          <div className="lg:col-span-5 bg-slate-950/40 border border-white/5 p-8 rounded-2xl flex flex-col justify-between backdrop-blur-md space-y-6">
+          <div className="lg:col-span-5 rounded-2xl p-8 flex flex-col justify-between space-y-6" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", backdropFilter: "blur(12px)" }}>
             <div className="space-y-6">
-              <span className="text-[10px] font-mono tracking-widest text-sky-400 uppercase bg-sky-950/40 px-2 py-1 rounded">
+              <span className="type-label px-2.5 py-1 rounded-md" style={{ color: "var(--text-secondary)", background: "var(--surface-inset)", border: "1px solid var(--border-subtle)" }}>
                 Salon Sélectionné
               </span>
               
               <div className="space-y-1">
-                <h3 className="font-serif text-2xl text-stone-100">{activeShowroom.name}</h3>
-                <p className="text-xs text-stone-500 font-mono">{activeShowroom.city}</p>
+                <h3 className="type-h3" style={{ color: "var(--text-primary)" }}>{activeShowroom.name}</h3>
+                <p className="text-xs font-mono" style={{ color: "var(--text-tertiary)" }}>{activeShowroom.city}</p>
               </div>
 
-              <div className="space-y-4 pt-4 border-t border-slate-900">
-                <div className="flex gap-3 items-start text-stone-300 text-sm font-light">
-                  <MapPin className="w-5 h-5 text-sky-400 shrink-0 mt-0.5" />
+              <div className="space-y-4 pt-4" style={{ borderTop: "1px solid var(--border-subtle)" }}>
+                <div className="flex gap-3 items-start text-sm font-light">
+                  <MapPin className="w-5 h-5 shrink-0 mt-0.5" style={{ color: "var(--text-accent)" }} />
                   <div>
-                    <p className="font-mono text-xs text-stone-400 uppercase tracking-wider">Adresse</p>
-                    <p className="mt-1 leading-relaxed text-stone-200">{activeShowroom.address}</p>
+                    <p className="type-label" style={{ color: "var(--text-tertiary)" }}>Adresse</p>
+                    <p className="mt-1 leading-relaxed" style={{ color: "var(--text-secondary)" }}>{activeShowroom.address}</p>
                   </div>
                 </div>
 
-                <div className="flex gap-3 items-start text-stone-300 text-sm font-light">
-                  <Phone className="w-5 h-5 text-sky-400 shrink-0 mt-0.5" />
+                <div className="flex gap-3 items-start text-sm font-light">
+                  <Phone className="w-5 h-5 shrink-0 mt-0.5" style={{ color: "var(--text-accent)" }} />
                   <div>
-                    <p className="font-mono text-xs text-stone-400 uppercase tracking-wider">Contact Showroom</p>
-                    <p className="mt-1 font-mono text-sky-400">{activeShowroom.phone}</p>
+                    <p className="type-label" style={{ color: "var(--text-tertiary)" }}>Contact Showroom</p>
+                    <p className="mt-1 font-mono font-medium" style={{ color: "var(--text-primary)" }}>{activeShowroom.phone}</p>
                   </div>
                 </div>
 
-                <div className="flex gap-3 items-start text-stone-300 text-sm font-light">
-                  <Clock className="w-5 h-5 text-sky-400 shrink-0 mt-0.5" />
+                <div className="flex gap-3 items-start text-sm font-light">
+                  <Clock className="w-5 h-5 shrink-0 mt-0.5" style={{ color: "var(--text-accent)" }} />
                   <div>
-                    <p className="font-mono text-xs text-stone-400 uppercase tracking-wider">Horaires de Visite</p>
-                    <p className="mt-1 text-stone-300">{activeShowroom.hours}</p>
+                    <p className="type-label" style={{ color: "var(--text-tertiary)" }}>Horaires de Visite</p>
+                    <p className="mt-1" style={{ color: "var(--text-secondary)" }}>{activeShowroom.hours}</p>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="space-y-4">
-              <div className="p-4 rounded-xl bg-sky-950/20 border border-sky-500/10 text-xs text-stone-400 font-light leading-relaxed">
-                <p className="text-stone-300 font-medium mb-1 flex items-center gap-1.5 text-sky-400 font-mono uppercase tracking-wider text-[10px]">
-                  <Sparkles className="w-3.5 h-3.5 animate-pulse" /> Service Privé de Curation
+              {/* REFINED APPLE EDITORIAL CALLOUT */}
+              <div className="p-5 rounded-2xl text-xs font-light leading-relaxed space-y-2" style={{ background: "var(--bg-elevated)", border: "1px solid var(--border-default)", boxShadow: "var(--shadow-sm)" }}>
+                <p className="font-medium flex items-center gap-1.5 type-label" style={{ color: "var(--text-primary)" }}>
+                  <Sparkles className="w-3.5 h-3.5" style={{ color: "var(--text-accent)" }} /> Service Privé de Curation
                 </p>
-                Besoin d'un accompagnement personnalisé ? Contactez directement notre équipe pour réserver un créneau exclusif d'une heure.
+                <p style={{ color: "var(--text-secondary)" }}>
+                  Besoin d'un accompagnement personnalisé ? Contactez directement notre équipe pour réserver un créneau exclusif d'une heure.
+                </p>
               </div>
 
               <a 
                 href={activeShowroom.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3 px-4 rounded-xl bg-slate-950 hover:bg-slate-900 border border-white/5 text-stone-300 hover:text-stone-100 transition-colors text-xs font-mono flex items-center justify-center gap-2 tracking-wide cursor-pointer"
+                className="btn-press w-full py-3.5 px-4 rounded-xl transition-all text-xs font-mono flex items-center justify-center gap-2 tracking-wide cursor-pointer font-medium"
+                style={{ background: "var(--bg-elevated)", border: "1px solid var(--border-default)", color: "var(--text-primary)" }}
               >
-                <ExternalLink className="w-4 h-4 text-sky-400" /> Ouvrir dans Google Maps
+                <ExternalLink className="w-4 h-4" style={{ color: "var(--text-accent)" }} /> Ouvrir dans Google Maps
               </a>
             </div>
           </div>
 
-          {/* OPENSTREETMAP EMBED INTEGRATION */}
-          <div className="lg:col-span-7 h-[450px] rounded-2xl overflow-hidden border border-white/5 relative bg-slate-950">
+          {/* OPENSTREETMAP EMBED INTEGRATION WITH DYNAMIC MAP FILTER */}
+          <div className="lg:col-span-7 h-[450px] rounded-2xl overflow-hidden relative" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)" }}>
             <iframe
               title={`Carte de ${activeShowroom.name}`}
               width="100%"
               height="100%"
               style={{ 
                 border: 0,
-                filter: "invert(90%) hue-rotate(180deg) brightness(88%) contrast(92%) grayscale(25%)",
+                filter: "var(--map-filter)",
               }}
               src={getOSMEmbedUrl(activeShowroom.lat, activeShowroom.lng)}
               allowFullScreen
             />
-            <div className="absolute top-4 right-4 bg-black/75 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/5 text-[9px] font-mono text-stone-400 tracking-wider flex items-center gap-1.5 pointer-events-none">
+            <div className="absolute top-4 right-4 backdrop-blur-md px-3 py-1.5 rounded-lg text-[9px] tracking-wider flex items-center gap-1.5 pointer-events-none" style={{ background: "var(--bg-overlay)", border: "1px solid var(--border-subtle)", fontFamily: "var(--font-mono)", color: "var(--text-secondary)" }}>
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> CARTE : OPENSTREETMAP
             </div>
           </div>

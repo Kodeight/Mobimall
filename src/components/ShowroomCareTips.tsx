@@ -129,22 +129,23 @@ export default function ShowroomCareTips() {
   const activeMaterial = CARE_MATERIALS.find((m) => m.id === selectedId) || CARE_MATERIALS[0];
 
   return (
-    <section 
-      id="showroom-care-tips-section" 
-      className="py-24 px-6 lg:px-16 bg-[#02040a] text-stone-100 border-t border-white/5 scroll-mt-24"
+    <section
+      id="showroom-care-tips-section"
+      className="py-24 px-6 lg:px-16 border-t scroll-mt-24"
+      style={{ background: "var(--bg-base)", color: "var(--text-primary)", borderColor: "var(--border-subtle)" }}
     >
       <div className="max-w-7xl mx-auto space-y-16">
-        
+
         {/* EN-TÊTE */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <span className="text-xs font-mono tracking-widest text-sky-400 uppercase block">
+          <span className="type-label block" style={{ color: "var(--accent)" }}>
             Manuel de Conservation
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif tracking-tight text-stone-100 leading-tight">
+          <h2 className="type-h2 leading-tight" style={{ color: "var(--text-primary)" }}>
             Préserver l'Éclat de Vos Matières
           </h2>
-          <div className="w-12 h-0.5 bg-sky-400 mx-auto mt-4" />
-          <p className="text-stone-400 text-sm font-light leading-relaxed pt-2">
+          <div className="w-12 h-0.5 mx-auto mt-4" style={{ background: "var(--accent)" }} />
+          <p className="type-body-sm font-light leading-relaxed pt-2" style={{ color: "var(--text-secondary)" }}>
             Chaque pièce d'ameublement Mobimall est confectionnée à partir d'essences et de fibres précieuses d'Algérie. Découvrez notre guide d'entretien artisanal pour faire traverser les générations à vos chefs-d'œuvre.
           </p>
         </div>
@@ -163,29 +164,36 @@ export default function ShowroomCareTips() {
                   key={mat.id}
                   id={`care-tab-${mat.id}`}
                   onClick={() => setSelectedId(mat.id)}
-                  className={`w-full p-5 rounded-2xl border text-left flex items-center justify-between gap-4 transition-all duration-300 cursor-pointer ${
-                    isSelected
-                      ? "bg-sky-950/40 border-sky-500/40 text-sky-400 shadow-lg shadow-sky-500/5 ring-1 ring-sky-500/10"
-                      : "bg-slate-950/30 border-white/5 text-stone-400 hover:border-white/10 hover:bg-slate-950/60 hover:text-stone-200"
-                  }`}
+                  className="btn-press w-full p-5 rounded-2xl text-left flex items-center justify-between gap-4 transition-all duration-300 cursor-pointer"
+                  style={{
+                    background: isSelected ? "var(--accent-bg)" : "var(--bg-card)",
+                    border: `1px solid ${isSelected ? "var(--accent-border)" : "var(--border-subtle)"}`,
+                    color: isSelected ? "var(--accent)" : "var(--text-secondary)",
+                    boxShadow: isSelected ? "var(--shadow-glow)" : "none",
+                  }}
                 >
                   <div className="flex gap-4 items-center">
-                    <div className={`p-2.5 rounded-xl border transition-colors ${
-                      isSelected ? "bg-sky-950 border-sky-500/30 text-sky-400" : "bg-slate-900 border-white/5 text-stone-500"
-                    }`}>
+                    <div
+                      className="p-2.5 rounded-xl border transition-colors"
+                      style={{
+                        background: isSelected ? "var(--accent-bg)" : "var(--bg-elevated)",
+                        borderColor: isSelected ? "var(--accent-border)" : "var(--border-default)",
+                        color: isSelected ? "var(--accent)" : "var(--text-tertiary)",
+                      }}
+                    >
                       <Icon className="w-5 h-5 shrink-0" />
                     </div>
                     <div className="space-y-0.5">
-                      <h3 className="font-serif text-sm font-semibold tracking-wide leading-tight">
+                      <h3 className="type-h3 leading-tight" style={{ color: "var(--text-primary)" }}>
                         {mat.name}
                       </h3>
-                      <p className="text-[10px] text-stone-500 font-mono tracking-wider">
+                      <p className="text-[10px] tracking-wider" style={{ fontFamily: "var(--font-mono)", color: "var(--text-tertiary)" }}>
                         {mat.subtitle.split(" & ")[0]}
                       </p>
                     </div>
                   </div>
 
-                  <span className="text-sm sm:text-base font-arabic text-amber-200/90 tracking-wide select-none">
+                  <span className="text-sm sm:text-base font-arabic tracking-wide select-none" style={{ color: "var(--text-accent)", fontStyle: "italic" }}>
                     {mat.arabicName}
                   </span>
                 </button>
@@ -194,43 +202,52 @@ export default function ShowroomCareTips() {
           </div>
 
           {/* COLONNE DROITE: AFFICHAGE DU GUIDE SÉLECTIONNÉ AVEC ANIMATIONS */}
-          <div className="lg:col-span-8 bg-slate-950/30 border border-white/5 rounded-2xl overflow-hidden flex flex-col justify-between">
+          <div
+            className="lg:col-span-8 rounded-2xl overflow-hidden flex flex-col justify-between"
+            style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)" }}
+          >
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeMaterial.id}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
+                transition={{ type: "spring", bounce: 0, duration: 0.35 }}
                 className="flex-1 flex flex-col lg:grid lg:grid-cols-12 h-full items-stretch"
               >
                 {/* APERÇU VISUEL DE LA MATIÈRE */}
-                <div className="lg:col-span-5 relative aspect-[16/10] lg:aspect-auto min-h-[220px] bg-slate-950">
+                <div
+                  className="lg:col-span-5 relative aspect-[16/10] lg:aspect-auto min-h-[220px]"
+                  style={{ background: "var(--bg-elevated)" }}
+                >
                   <img
                     src={activeMaterial.bannerImage}
                     alt={activeMaterial.name}
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover opacity-70"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-[#02040a] via-[#02040a]/30 to-transparent" />
-                  
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, var(--bg-base) 0%, transparent 60%)" }} />
+
                   <div className="absolute bottom-6 left-6 right-6 space-y-1">
-                    <span className="text-[9px] font-mono tracking-widest text-sky-400 uppercase bg-sky-950/80 border border-sky-500/20 px-2.5 py-1 rounded-full backdrop-blur-md inline-block">
+                    <span
+                      className="text-[9px] tracking-widest uppercase px-2.5 py-1 rounded-full backdrop-blur-md inline-block"
+                      style={{ fontFamily: "var(--font-mono)", color: "var(--accent)", background: "var(--accent-bg)", border: "1px solid var(--accent-border)" }}
+                    >
                       Matière Signature
                     </span>
-                    <h4 className="font-serif text-xl text-stone-100 tracking-tight">
+                    <h4 className="type-h3" style={{ color: "var(--text-primary)" }}>
                       {activeMaterial.name}
                     </h4>
                   </div>
                 </div>
 
                 {/* ÉTAPES D'ENTRETIEN */}
-                <div className="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between space-y-6 bg-slate-950/20 backdrop-blur-sm">
-                  
+                <div className="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between space-y-6">
+
                   <div className="space-y-5">
                     <div className="space-y-1">
-                      <p className="text-[10px] font-mono tracking-widest text-sky-400 uppercase">Protocole d'Entretien</p>
-                      <h4 className="font-serif text-lg text-stone-200 tracking-tight">{activeMaterial.subtitle}</h4>
+                      <p className="type-label" style={{ color: "var(--accent)" }}>Protocole d'Entretien</p>
+                      <h4 className="type-h3" style={{ color: "var(--text-primary)" }}>{activeMaterial.subtitle}</h4>
                     </div>
 
                     <div className="space-y-4">
@@ -239,14 +256,17 @@ export default function ShowroomCareTips() {
 
                         return (
                           <div key={idx} className="flex gap-4 items-start">
-                            <div className="w-8 h-8 rounded-lg bg-sky-950/30 border border-sky-500/15 flex items-center justify-center shrink-0 mt-0.5">
-                              <StepIcon className="w-4 h-4 text-sky-400" />
+                            <div
+                              className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
+                              style={{ background: "var(--accent-bg)", border: "1px solid var(--accent-border)" }}
+                            >
+                              <StepIcon className="w-4 h-4" style={{ color: "var(--accent)" }} />
                             </div>
                             <div className="space-y-1">
-                              <h5 className="text-xs font-semibold text-stone-200 uppercase tracking-wide font-mono">
+                              <h5 className="type-label" style={{ color: "var(--text-primary)" }}>
                                 {idx + 1}. {step.title}
                               </h5>
-                              <p className="text-xs text-stone-400 font-light leading-relaxed">
+                              <p className="type-body-sm font-light leading-relaxed" style={{ color: "var(--text-secondary)" }}>
                                 {step.description}
                               </p>
                             </div>
@@ -257,11 +277,14 @@ export default function ShowroomCareTips() {
                   </div>
 
                   {/* ASTUCE DE L'ATELIER (PRO TIP) */}
-                  <div className="pt-6 border-t border-white/5 flex gap-3 items-start bg-sky-950/5 p-4 rounded-xl border border-sky-500/5">
-                    <Info className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
+                  <div
+                    className="flex gap-3 items-start p-4 rounded-xl"
+                    style={{ background: "var(--accent-bg)", border: "1px solid var(--accent-border)" }}
+                  >
+                    <Info className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "var(--accent)" }} />
                     <div className="space-y-0.5">
-                      <p className="text-[9px] font-mono uppercase tracking-wider text-sky-400 font-bold">Conseil de l'Ébéniste</p>
-                      <p className="text-[11px] text-stone-300 font-light leading-relaxed">
+                      <p className="type-label" style={{ color: "var(--accent)" }}>Conseil de l'Ébéniste</p>
+                      <p className="type-body-sm font-light leading-relaxed" style={{ color: "var(--text-secondary)" }}>
                         {activeMaterial.proTip}
                       </p>
                     </div>

@@ -34,22 +34,22 @@ export default function AppointmentSection({ preselectedProductName, onClose }: 
   ];
 
   return (
-    <section id="appointment-contact-section" className="py-20 px-6 lg:px-16 bg-[#02040a] text-stone-100 min-h-screen">
+    <section id="appointment-contact-section" className="py-20 px-6 lg:px-16 min-h-screen" style={{ background: "var(--bg-base)", color: "var(--text-primary)" }}>
       <div className="max-w-7xl mx-auto space-y-12">
         
         {/* HEADER */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <span className="text-xs font-mono tracking-widest text-sky-400 uppercase block">
+          <span className="type-label block" style={{ color: "var(--accent)" }}>
             Espace Client Privilégié
           </span>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif tracking-tight text-stone-100">
+          <h1 className="type-h1" style={{ color: "var(--text-primary)" }}>
             Prise de Rendez-vous & Contact
           </h1>
-          <p className="text-xs font-serif text-amber-200/90 font-arabic text-xl tracking-wide">
+          <p className="text-xs font-arabic text-xl tracking-wide font-serif" style={{ color: "var(--text-accent)", fontStyle: "italic" }}>
             حجز موعد visite المعرض الخاص والاستشارة
           </p>
-          <div className="w-12 h-0.5 bg-sky-400 mx-auto mt-2" />
-          <p className="text-stone-400 text-sm font-light leading-relaxed pt-2">
+          <div className="w-12 h-0.5 mx-auto mt-2" style={{ background: "var(--accent)" }} />
+          <p className="type-body-sm font-light leading-relaxed pt-2" style={{ color: "var(--text-secondary)" }}>
             Rencontrez nos maîtres ébénistes et conseillers en aménagement intérieur dans notre salon privé d'Aïn Benian, Alger. Touchez nos échantillons de cuirs précieux et bois d'exception.
           </p>
         </div>
@@ -58,7 +58,7 @@ export default function AppointmentSection({ preselectedProductName, onClose }: 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* LEFT: SHOWROOM INFORMATION CARD */}
-          <div className="lg:col-span-5 space-y-6 bg-slate-950/60 border border-white/5 rounded-2xl p-8 backdrop-blur-md">
+          <div className="lg:col-span-5 space-y-6 rounded-2xl p-8" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", backdropFilter: "blur(12px)" }}>
             <div>
               <span className="text-[10px] font-mono text-sky-400 uppercase tracking-widest">Salon d'Exposition</span>
               <h3 className="font-serif text-2xl text-stone-100 mt-1">Aïn Benian, Alger</h3>
@@ -123,7 +123,7 @@ export default function AppointmentSection({ preselectedProductName, onClose }: 
           </div>
 
           {/* RIGHT: APPOINTMENT BOOKING FORM */}
-          <div className="lg:col-span-7 bg-slate-950/80 border border-white/5 rounded-2xl p-8 backdrop-blur-md relative overflow-hidden">
+          <div className="lg:col-span-7 rounded-2xl p-8 relative overflow-hidden" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", backdropFilter: "blur(12px)" }}>
             {submitted ? (
               <motion.div 
                 initial={{ opacity: 0, scale: 0.95 }}
